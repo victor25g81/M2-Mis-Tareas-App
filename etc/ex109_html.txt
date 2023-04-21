@@ -1,0 +1,25 @@
+Ejercicio 109. ¿Para qué sirven los elementos HTML <ul>, y <ol>.
+
+<ul> se utiliza para crear una lista no ordenada, donde los elementos se presentan en un orden sin importar su
+ importancia. Por lo general, se representa con viñetas o puntos como marcadores de lista.
+
+
+ <ol> se utiliza para crear una lista ordenada, donde los elementos se presentan en un orden específico y se 
+ numeran en consecuencia. Por lo general, se representa con números como marcadores de lista.
+
+ ul: unordered list: lista no ordenada
+
+ <ul>
+    <li>Java</li>
+    <li>Python</li>
+    <li>JavaScript</li>
+</ul>
+
+
+ol: ordered list: lista ordenada
+
+<ol>
+    <li>Java</li>
+    <li>Python</li>
+    <li>JavaScript</li>
+</ol>
