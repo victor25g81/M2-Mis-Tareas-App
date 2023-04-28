@@ -1,20 +1,38 @@
-$(document).ready((event) => {
-  $("#crearTarea").on("click", crearTarea);
+$(document).ready(() => {
+    
 
-  $("#fechaHora").datetimepicker({
-    timeFormat: 'hh:mm',
-    showSecond: false,
-    showMillisec: false, // set to false to hide milliseconds
-    showMicrosec: false, // set to false to hide microseconds
-    controlType: 'select',
-    oneLine: true
-  });
+    document.querySelector('#modalFechaHora').addEventListener('show.bs.modal', function() {
+        const fechaHoraActual = moment();
+        
+        document.querySelector('#fecha').value = fechaHoraActual.format('YYYY-MM-DD');
+        document.querySelector("#fecha").min = fechaHoraActual.format('YYYY-MM-DD');
+        
+        fechaHoraActual.hours(fechaHoraActual.hours() + 1);
+        fechaHoraActual.minutes(0);
+        document.querySelector('#hora').value = fechaHoraActual.format('HH:mm');
+    });
 });
 
-function crearTarea(event) {
-  event.preventDefault();
+//var horaseleccionada = document.querySelector('#hora').value = fechaHoraActual.format('HH:mm');
 
-  $("#fechaHora").datetimepicker("show");
-  
-  console.log("ok");
-}
+horaseleccionada.addEventListener("change", function(){
+
+    document.querySelector('#hora').value = fechaHoraActual.format('HH:mm');
+
+    if(horaseleccionada.isBefore(hora)){
+
+        alert("la hora y minutos no pueden ser inferiores a la hora actual");
+
+        this.value = fechaHoraActual.format("HH:mm");
+    }
+
+});
+
+
+function validar() {
+    var contenido = document.getElementById("contenido").value;
+    if (contenido === "") {
+      alert("Por favor, ingrese su nombre");
+      addEventListener.preventDefault(); // evita que se envíe el formulario
+    }
+  };
