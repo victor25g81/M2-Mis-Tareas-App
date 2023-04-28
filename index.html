@@ -52,15 +52,17 @@
               class="form-control"
               id="contenido"
               placeholder="¿Qué quieres hacer?"
-              
+              oninput="checkInput()"
             />
           </div>
           <div class="col-2">
             <button
-                type="button"
+              type="button"
               class="btn btn-primary btn-round"
               data-bs-toggle="modal"
               data-bs-target="#modalFechaHora"
+              id="crearTarea"
+              disabled
             >
               <i class="fa-solid fa-plus"></i>
             </button>
@@ -97,7 +99,7 @@
               </div>
               <div class="mb-3">
                 <label for="hora" class="form-label">Hora:</label>
-                <input type="time" class="form-control" id="hora" required>
+                <input type="time" class="form-control" id="hora" min="" required>
               </div>
           </div>
           <div class="modal-footer">
