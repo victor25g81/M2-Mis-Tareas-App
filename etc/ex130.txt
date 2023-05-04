@@ -1,0 +1,29 @@
+Muestre un ejemplo de localStorage y JSON.
+
+Para lograr esto, se puede utilizar el objeto localStorage del navegador para almacenar las notas como una 
+matriz de objetos JSON. Primero, se debe convertir la matriz de notas en una cadena JSON utilizando el método 
+JSON.stringify() antes de almacenarla en localStorage. Luego, se debe convertir la cadena JSON de nuevo en una 
+matriz de objetos JavaScript utilizando el método JSON.parse() al recuperarla de localStorage.
+
+
+// Crear una matriz de objetos de notas
+var notes = [
+  { title: 'Nota 1', content: 'Esta es la nota 1.' },
+  { title: 'Nota 2', content: 'Esta es la nota 2.' },
+  { title: 'Nota 3', content: 'Esta es la nota 3.' }
+];
+
+// Convertir la matriz de notas en una cadena JSON
+var notesJson = JSON.stringify(notes);
+
+// Almacenar la cadena JSON en localStorage
+localStorage.setItem('notes', notesJson);
+
+// Recuperar la cadena JSON de localStorage
+var storedNotesJson = localStorage.getItem('notes');
+
+// Convertir la cadena JSON en una matriz de objetos JavaScript
+var storedNotes = JSON.parse(storedNotesJson);
+
+// Mostrar las notas recuperadas en la consola
+console.log(storedNotes);

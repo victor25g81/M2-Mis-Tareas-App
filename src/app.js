@@ -34,16 +34,33 @@ function guardarTarea(event) {
 
 function mostrarTarea(tarea){
 
+    const template = `
+    <div class="container" style="margin-top: 2px">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                        <input class="form-check-input custom-control-input" type="checkbox" value="" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                            <i class="fas fa-clock"></i>${tarea.hora} - ${tarea.contenido}
+                        </label>
+                    </div>
+                    <div>
+                        <label for="label"></label>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-warning" onclick="${eliminarTarea()}"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+
     const tareasHoy = $('#tareasHoy');
     const liTarea =$('<li></li>');
-    const checkboxTarea = $('<input type = "checkbox">');
-    const botonEliminar = $('<button class="eliminar-tarea"><i class="fas fa-trash-alt"></i></button>');
-    botonEliminar.on('click', function() {
-        liTarea.remove();
-    });
-    liTarea.append(checkboxTarea);
-    liTarea.append(tarea.contenido);
-    liTarea.append(botonEliminar);
+
+    liTarea.html(template);
+
     tareasHoy.append(liTarea);
 }
 
@@ -63,4 +80,22 @@ function checkInput() {
   } else {
     button.disabled = true;
   }
+}
+
+function eliminarTarea(){
+
+    const tarea = document.querySelector("#tareasHoy");
+
+    // Agregar un event listener a ese elemento para escuchar los clicks en los elementos <li>
+    tarea.addEventListener("click", function(event) {
+        // Obtener el elemento <li> que se ha clickeado
+        const li = event.target;
+
+        console.log(li);
+
+        // Eliminar el elemento <li> de la lista de tareas
+        $(li).parent().parent().parent().parent().parent().remove();
+    });
+
+    console.log(this);
 }
