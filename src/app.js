@@ -1,23 +1,23 @@
 $(document).ready(() => {
-  document
-    .querySelector("#modalFechaHora")
-    .addEventListener("show.bs.modal", function () {
-      const fechaHoraActual = moment();
+  document.querySelector("#modalFechaHora").addEventListener("show.bs.modal", function () {
+    const fechaHoraActual = moment();
 
-      document.querySelector("#fecha").value =
-        fechaHoraActual.format("YYYY-MM-DD");
-      document.querySelector("#fecha").min =
-        fechaHoraActual.format("YYYY-MM-DD");
+    document.querySelector("#fecha").value =
+      fechaHoraActual.format("YYYY-MM-DD");
+    document.querySelector("#fecha").min =
+      fechaHoraActual.format("YYYY-MM-DD");
 
-      fechaHoraActual.add(1, "m");
-      document.querySelector("#hora").min = fechaHoraActual.format("HH:mm");
+    fechaHoraActual.add(1, "m");
+    document.querySelector("#hora").min = fechaHoraActual.format("HH:mm");
 
-      fechaHoraActual.hours(fechaHoraActual.hours() + 1);
-      fechaHoraActual.minutes(0);
-      document.querySelector("#hora").value = fechaHoraActual.format("HH:mm");
-    });
+    fechaHoraActual.hours(fechaHoraActual.hours() + 1);
+    fechaHoraActual.minutes(0);
+    document.querySelector("#hora").value = fechaHoraActual.format("HH:mm");
+  });
 
-    $('#guardarTarea').on('click', guardarTarea)
+  $('#guardarTarea').on('click', guardarTarea);
+
+  cargarTareas();
 });
 
 function guardarTarea(event) {
@@ -212,4 +212,12 @@ function clasificarTareaPorFecha(fecha) {
   }
 
   return 'tareasSiguientesDias';
+}
+
+function cargarTareas(){
+  const tareas = JSON.parse(localStorage.getItem('tareas'));
+
+  for(const t of tareas) {
+    mostrarTarea(t);
+  }
 }
