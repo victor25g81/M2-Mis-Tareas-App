@@ -18,6 +18,8 @@ $(document).ready(() => {
   $('#guardarTarea').on('click', guardarTarea);
 
   cargarTareas();
+
+  $('.btn-eliminar').on('click', eliminarTarea);
 });
 
 function guardarTarea(event) {
@@ -53,24 +55,12 @@ function mostrarTarea(tarea){
                         <label for="label"></label>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-warning" onclick="${eliminarTarea()}"><i class="fas fa-trash-alt"></i></button>
-                        
+                        <button type="button" class="btn btn-warning btn-eliminar"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>`;
-
-    /*const categoria = tarea.categoria;
-
-    const tareasLista = $(`#${categoria}`);
-
-    const liTarea =$('<li></li>');
-
-    liTarea.html(template);
-
-    tareasLista.append(liTarea);
-}*/
 
     const clasificacion = clasificarTareaPorFecha(tarea.fecha);
 
@@ -102,20 +92,23 @@ function checkInput() {
 
 function eliminarTarea(){
 
-    const tarea = document.querySelector("#tareasHoy");
+    const btnEliminar = $(this);
+    btnEliminar.parent().parent().parent().parent().parent().remove();
 
-    // Agregar un event listener a ese elemento para escuchar los clicks en los elementos <li>
-    tarea.addEventListener("click", function(event) {
-        // Obtener el elemento <li> que se ha clickeado
-        const li = event.target;
+    // const tarea = document.querySelector("#tareasHoy");
 
-        console.log(li);
+    // // Agregar un event listener a ese elemento para escuchar los clicks en los elementos <li>
+    // tarea.addEventListener("click", function(event) {
+    //     // Obtener el elemento <li> que se ha clickeado
+    //     const li = event.target;
 
-        // Eliminar el elemento <li> de la lista de tareas
-        $(li).parent().parent().parent().parent().parent().remove();
-    });
+    //     console.log(li);
 
-    console.log(this);
+    //     // Eliminar el elemento <li> de la lista de tareas
+    //     $(li).parent().parent().parent().parent().parent().remove();
+    // });
+
+    // console.log(this);
 }
 
 function clasificarTarea(tarea) {
