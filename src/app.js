@@ -27,7 +27,7 @@ function guardarTarea(event) {
     const fecha = $('#fecha').val();
     const hora = $('#hora').val();
 
-    const tarea = new Tarea(contenido, fecha, hora);´
+    const tarea = new Tarea(contenido, fecha, hora);
 
     almacenarTarea(tarea);
 
@@ -198,3 +198,18 @@ function almacenarTarea(tarea) {
   localStorage.setItem('tareas', JSON.stringify(tareas));
 }
 
+function clasificarTareaPorFecha(fecha) {
+  const hoy = moment();
+
+  if (hoy.format('YYYY-MM-DD') == fecha) {
+    return 'tareasHoy';
+  }
+
+  const manana = hoy.add(1, 'days');
+
+  if (manana.format('YYYY-MM-DD') == fecha) {
+    return 'tareasManana';
+  }
+
+  return 'tareasSiguientesDias';
+}
