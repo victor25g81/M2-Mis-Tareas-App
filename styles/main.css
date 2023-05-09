@@ -39,3 +39,15 @@
 #tareasHoy > li {
     list-style: none;
 }
+
+
+.fa-calendar-alt {
+    display: inline-block;
+    vertical-align: middle;
+    color: brown;
+  }
+  
+  .fa-calendar-alt i {
+    margin-right: 0.5em;
+  }
+  
