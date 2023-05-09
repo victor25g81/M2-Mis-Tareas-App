@@ -31,10 +31,7 @@ function guardarTarea(event) {
 
     almacenarTarea(tarea);
 
-    /*const tareaClasificada = clasificarTarea(tarea); /*linea de prueba*/
-
     mostrarTarea(tarea);
-    /*mostrarTarea(tareaClasificada);*/
 }
 
 function mostrarTarea(tarea){
@@ -120,56 +117,6 @@ function eliminarTarea(){
 
     console.log(this);
 }
-
-function ordenarTareas(){
-    $(document).ready(() => {
-        // Obtener la fecha actual
-        const fechaActual = moment();
-      
-        // Filtrar las tareas según si son para hoy, mañana o otro día
-        const thoy = [];
-        const tmanana = [];
-        const totrodia = [];
-      
-        // Obtener todas las tareas de la lista
-        const tareas = $('#tareasHoy li');
-      
-        tareas.each(function() {
-          // Obtener la fecha de la tarea
-          const fechaTarea = moment($(this).find('.fecha-tarea').text(), 'YYYY-MM-DD');
-          
-          // Comparar la fecha de la tarea con la fecha actual
-          const diffDays = fechaTarea.diff(fechaActual, 'days');
-      
-          // Agregar la tarea a la sección correspondiente
-          if (diffDays === 0) {
-            thoy.push($(this));
-          } else if (diffDays === 1) {
-            tmanana.push($(this));
-          } else {
-            totrodia.push($(this));
-          }
-        });
-      
-       
-      
-        // Agregar las tareas a sus secciones correspondientes en el HTML
-        const tareasHoy = $('#tareashoy ul');
-        const tareasManana = $('#tareasmañana ul');
-        const tareasOtroDia = $('#tareasotrodia ul');
-      
-        tareashoy.forEach(function(tarea) {
-          tareashoy.append(tarea);
-        });
-        tareasmañana.forEach(function(tarea) {
-          tareasmañana.append(tarea);
-        });
-        tareasotrodia.forEach(function(tarea) {
-          tareasotrodia.append(tarea);
-        });
-      });      
-};
-
 
 function clasificarTarea(tarea) {
   const fechaTarea = moment(tarea.fecha, 'YYYY-MM-DD').startOf('day');
