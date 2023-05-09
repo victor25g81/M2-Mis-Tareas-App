@@ -77,7 +77,7 @@ function mostrarTarea(tarea){
 
     const clasificacion = clasificarTareaPorFecha(tarea.fecha);
 
-    const tareasHoy = $('#tareasHoy');
+    const tareasHoy = $('#' + clasificacion);
     const liTarea =$('<li></li>');
 
     liTarea.html(template);
