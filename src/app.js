@@ -27,7 +27,9 @@ function guardarTarea(event) {
     const fecha = $('#fecha').val();
     const hora = $('#hora').val();
 
-    const tarea = new Tarea(contenido, fecha, hora);
+    const tarea = new Tarea(contenido, fecha, hora);´
+
+    almacenarTarea(tarea);
 
     /*const tareaClasificada = clasificarTarea(tarea); /*linea de prueba*/
 
@@ -72,6 +74,8 @@ function mostrarTarea(tarea){
 
     tareasLista.append(liTarea);
 }*/
+
+    const clasificacion = clasificarTareaPorFecha(tarea.fecha);
 
     const tareasHoy = $('#tareasHoy');
     const liTarea =$('<li></li>');
@@ -180,3 +184,17 @@ function clasificarTarea(tarea) {
 
   return tarea;
 }
+
+function almacenarTarea(tarea) {
+
+  if (!localStorage.getItem('tareas')) {
+    localStorage.setItem('tareas', JSON.stringify([]));
+  }
+
+  const tareas = JSON.parse(localStorage.getItem('tareas'));
+
+  tareas.push(tarea);
+
+  localStorage.setItem('tareas', JSON.stringify(tareas));
+}
+
