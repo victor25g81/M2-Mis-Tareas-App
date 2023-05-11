@@ -22,6 +22,7 @@ $(document).ready(() => {
   cargarTareas();
 
   $(".btn-eliminar").on("click", eliminarTarea);
+  $('.form-check-input').on('change', marcarComoFinalizada)
 });
 
 function guardarTarea(event) {
@@ -45,7 +46,7 @@ function mostrarTarea(tarea) {
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="form-check">
-                        <input class="form-check-input custom-control-input" type="checkbox" value="" id="defaultCheck1">
+                        <input class="form-check-input custom-control-input" type="checkbox" value="" tareaIdCheckbox="${tarea.id}">
                         <label class="form-check-label" for="defaultCheck1">
 
                         <i class="fas fa-clock"></i>${tarea.hora} - ${tarea.contenido}
@@ -73,13 +74,17 @@ function mostrarTarea(tarea) {
   tareasHoy.append(liTarea);
 }
 
-/*function mostrarTarea(tarea) {
-    const tareasHoy = $('#tareasHoy');
-    const liTarea = $('<li></li>');
-    liTarea.text(tarea.contenido);
-    tareasHoy.append(liTarea);
+function marcarComoFinalizada(event) {
+  const btnEliminar = $(this);
+  btnEliminar.parent().parent().parent().parent().parent().remove();
+
+  const tareaId = $(btnEliminar).attr("tareaId");
+
+  marcarTareaComoFinalizada(tareaId);
 }
-*/
+
+
+
 function checkInput() {
   var input = document.getElementById("contenido").value.trim();
   var button = document.getElementById("crearTarea");
@@ -97,10 +102,10 @@ function eliminarTarea() {
 
   const tareaId = $(btnEliminar).attr("tareaId");
 
-  elimintarTareaDesdeLocalStorage(tareaId);
+  eliminarTareaDesdeLocalStorage(tareaId);
 }
 
-function elimintarTareaDesdeLocalStorage(tareaId) {
+function eliminarTareaDesdeLocalStorage(tareaId) {
   let tareas = JSON.parse(localStorage.getItem("tareas"));
 
   tareas = tareas.filter((t) => t.id !== tareaId);
