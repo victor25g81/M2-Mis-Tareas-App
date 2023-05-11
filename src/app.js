@@ -76,14 +76,22 @@ function mostrarTarea(tarea) {
 
 function marcarComoFinalizada(event) {
   const btnEliminar = $(this);
+  const tareaId = $(btnEliminar).attr("tareaIdCheckbox");
+  
   btnEliminar.parent().parent().parent().parent().parent().remove();
 
-  const tareaId = $(btnEliminar).attr("tareaId");
 
   marcarTareaComoFinalizada(tareaId);
 }
 
+function marcarTareaComoFinalizada(tareaId) {
+  let tareas = JSON.parse(localStorage.getItem("tareas"));
 
+  const tarea = tareas.find((t) => t.id === tareaId);
+  tarea.terminado = true;
+
+  localStorage.setItem("tareas", JSON.stringify(tareas));
+}
 
 function checkInput() {
   var input = document.getElementById("contenido").value.trim();
