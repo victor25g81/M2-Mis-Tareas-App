@@ -167,6 +167,8 @@ function cargarTareas() {
   const tareas = JSON.parse(localStorage.getItem("tareas"));
 
   for (const t of tareas) {
-    mostrarTarea(t);
+    if (!t.terminado) {
+      mostrarTarea(t);
+    }
   }
 }
