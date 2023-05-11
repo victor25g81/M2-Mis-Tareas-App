@@ -1,44 +1,45 @@
 $(document).ready(() => {
-  document.querySelector("#modalFechaHora").addEventListener("show.bs.modal", function () {
-    const fechaHoraActual = moment();
+  document
+    .querySelector("#modalFechaHora")
+    .addEventListener("show.bs.modal", function () {
+      const fechaHoraActual = moment();
 
-    document.querySelector("#fecha").value =
-      fechaHoraActual.format("YYYY-MM-DD");
-    document.querySelector("#fecha").min =
-      fechaHoraActual.format("YYYY-MM-DD");
+      document.querySelector("#fecha").value =
+        fechaHoraActual.format("YYYY-MM-DD");
+      document.querySelector("#fecha").min =
+        fechaHoraActual.format("YYYY-MM-DD");
 
-    fechaHoraActual.add(1, "m");
-    document.querySelector("#hora").min = fechaHoraActual.format("HH:mm");
+      fechaHoraActual.add(1, "m");
+      document.querySelector("#hora").min = fechaHoraActual.format("HH:mm");
 
-    fechaHoraActual.hours(fechaHoraActual.hours() + 1);
-    fechaHoraActual.minutes(0);
-    document.querySelector("#hora").value = fechaHoraActual.format("HH:mm");
-  });
+      fechaHoraActual.hours(fechaHoraActual.hours() + 1);
+      fechaHoraActual.minutes(0);
+      document.querySelector("#hora").value = fechaHoraActual.format("HH:mm");
+    });
 
-  $('#guardarTarea').on('click', guardarTarea);
+  $("#guardarTarea").on("click", guardarTarea);
 
   cargarTareas();
 
-  $('.btn-eliminar').on('click', eliminarTarea);
+  $(".btn-eliminar").on("click", eliminarTarea);
 });
 
 function guardarTarea(event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    const contenido = $('#contenido').val();
-    const fecha = $('#fecha').val();
-    const hora = $('#hora').val();
+  const contenido = $("#contenido").val();
+  const fecha = $("#fecha").val();
+  const hora = $("#hora").val();
 
-    const tarea = new Tarea(contenido, fecha, hora);
+  const tarea = new Tarea(contenido, fecha, hora);
 
-    almacenarTarea(tarea);
+  almacenarTarea(tarea);
 
-    mostrarTarea(tarea);
+  mostrarTarea(tarea);
 }
 
-function mostrarTarea(tarea){
-
-    const template = `
+function mostrarTarea(tarea) {
+  const template = `
     <div class="container" style="margin-top: 2px">
         <div class="row">
             <div class="col-12">
@@ -55,22 +56,22 @@ function mostrarTarea(tarea){
                         <label for="label"></label>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-warning btn-eliminar"><i class="fas fa-trash-alt"></i></button>
+                        <button type="button" class="btn btn-warning btn-eliminar" tareaId="${tarea.id}"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>`;
 
-    const clasificacion = clasificarTareaPorFecha(tarea.fecha);
+  const clasificacion = clasificarTareaPorFecha(tarea.fecha);
 
-    const tareasHoy = $('#' + clasificacion);
-    const liTarea =$('<li></li>');
+  const tareasHoy = $("#" + clasificacion);
+  const liTarea = $("<li></li>");
 
-    liTarea.html(template);
+  liTarea.html(template);
 
-    tareasHoy.append(liTarea);
-};
+  tareasHoy.append(liTarea);
+}
 
 /*function mostrarTarea(tarea) {
     const tareasHoy = $('#tareasHoy');
@@ -90,29 +91,21 @@ function checkInput() {
   }
 }
 
-function eliminarTarea(){
+function eliminarTarea() {
+  const btnEliminar = $(this);
+  btnEliminar.parent().parent().parent().parent().parent().remove();
 
-    const btnEliminar = $(this);
-    btnEliminar.parent().parent().parent().parent().parent().remove();
+  const tareaId = $(btnEliminar).attr("tareaId");
 
-    localStorage.removeItem('tareas'); /*lineas de prueba para eliminar del localStorage*/
-    localStorage.removeItem('tareas onclick');
-    btnEliminar.remove();
+  elimintarTareaDesdeLocalStorage(tareaId);
+}
 
-    // const tarea = document.querySelector("#tareasHoy");
+function elimintarTareaDesdeLocalStorage(tareaId) {
+  let tareas = JSON.parse(localStorage.getItem("tareas"));
 
-    // // Agregar un event listener a ese elemento para escuchar los clicks en los elementos <li>
-    // tarea.addEventListener("click", function(event) {
-    //     // Obtener el elemento <li> que se ha clickeado
-    //     const li = event.target;
+  tareas = tareas.filter((t) => t.id !== tareaId);
 
-    //     console.log(li);
-
-    //     // Eliminar el elemento <li> de la lista de tareas
-    //     $(li).parent().parent().parent().parent().parent().remove();
-    // });
-
-    // console.log(this);
+  localStorage.setItem("tareas", JSON.stringify(tareas));
 }
 
 /*function clasificarTarea(tarea) {
@@ -130,38 +123,37 @@ function eliminarTarea(){
 }*/
 
 function almacenarTarea(tarea) {
-
-  if (!localStorage.getItem('tareas')) {
-    localStorage.setItem('tareas', JSON.stringify([]));
+  if (!localStorage.getItem("tareas")) {
+    localStorage.setItem("tareas", JSON.stringify([]));
   }
 
-  const tareas = JSON.parse(localStorage.getItem('tareas'));
+  const tareas = JSON.parse(localStorage.getItem("tareas"));
 
   tareas.push(tarea);
 
-  localStorage.setItem('tareas', JSON.stringify(tareas));
+  localStorage.setItem("tareas", JSON.stringify(tareas));
 }
 
 function clasificarTareaPorFecha(fecha) {
   const hoy = moment();
 
-  if (hoy.format('YYYY-MM-DD') == fecha) {
-    return 'tareasHoy';
+  if (hoy.format("YYYY-MM-DD") == fecha) {
+    return "tareasHoy";
   }
 
-  const manana = hoy.add(1, 'days');
+  const manana = hoy.add(1, "days");
 
-  if (manana.format('YYYY-MM-DD') == fecha) {
-    return 'tareasManana';
+  if (manana.format("YYYY-MM-DD") == fecha) {
+    return "tareasManana";
   }
 
-  return 'tareasSiguientesDias';
+  return "tareasSiguientesDias";
 }
 
-function cargarTareas(){
-  const tareas = JSON.parse(localStorage.getItem('tareas'));
+function cargarTareas() {
+  const tareas = JSON.parse(localStorage.getItem("tareas"));
 
-  for(const t of tareas) {
+  for (const t of tareas) {
     mostrarTarea(t);
   }
 }
