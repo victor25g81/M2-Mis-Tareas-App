@@ -95,6 +95,10 @@ function eliminarTarea(){
     const btnEliminar = $(this);
     btnEliminar.parent().parent().parent().parent().parent().remove();
 
+    localStorage.removeItem('tareas'); /*lineas de prueba para eliminar del localStorage*/
+    localStorage.removeItem('tareas onclick');
+    btnEliminar.remove();
+
     // const tarea = document.querySelector("#tareasHoy");
 
     // // Agregar un event listener a ese elemento para escuchar los clicks en los elementos <li>
@@ -111,7 +115,7 @@ function eliminarTarea(){
     // console.log(this);
 }
 
-function clasificarTarea(tarea) {
+/*function clasificarTarea(tarea) {
   const fechaTarea = moment(tarea.fecha, 'YYYY-MM-DD').startOf('day');
 
   if (fechaTarea.isSame(hoy, 'day')) {
@@ -123,7 +127,7 @@ function clasificarTarea(tarea) {
   }
 
   return tarea;
-}
+}*/
 
 function almacenarTarea(tarea) {
 
