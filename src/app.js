@@ -80,19 +80,33 @@ function mostrarTarea(tarea) {
 }
 
 function marcarComoFinalizada(event) {
-  const btnEliminar = $(this);
-  const tareaId = $(btnEliminar).attr("tareaIdCheckbox");
-  
-  btnEliminar.parent().parent().parent().parent().parent().remove();
+
+  Swal.fire({
+    title: 'Do you want to save the changes?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Save',
+    denyButtonText: `Don't save`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      const btnEliminar = $(this);
+      const tareaId = $(btnEliminar).attr("tareaIdCheckbox");
+      
+      btnEliminar.parent().parent().parent().parent().parent().remove();
 
 
-  marcarTareaComoFinalizada(tareaId);
+      marcarTareaComoFinalizada(tareaId);
 
-  let tareas = JSON.parse(localStorage.getItem("tareas"));
+      let tareas = JSON.parse(localStorage.getItem("tareas"));
 
-  const tarea = tareas.find((t) => t.id === tareaId);
+      const tarea = tareas.find((t) => t.id === tareaId);
 
-  mostrarTareaFinalizada(tarea);
+      mostrarTareaFinalizada(tarea);
+    } else if (result.isDenied) {
+      Swal.fire('Changes are not saved', '', 'info')
+    }
+  })
 }
 
 function marcarTareaComoFinalizada(tareaId) {
