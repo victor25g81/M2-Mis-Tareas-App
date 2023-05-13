@@ -23,7 +23,6 @@ $(document).ready(() => {
   cargarTareasFinalizadas();
 
   $(".btn-eliminar").on("click", eliminarTarea);
-  $('.form-check-input').on('change', marcarComoFinalizada)
 });
 
 function guardarTarea(event) {
@@ -73,6 +72,8 @@ function mostrarTarea(tarea) {
   liTarea.html(template);
 
   tareasHoy.append(liTarea);
+
+  $('.form-check-input').on('change', marcarComoFinalizada);
 }
 
 function marcarComoFinalizada(event) {
@@ -83,6 +84,12 @@ function marcarComoFinalizada(event) {
 
 
   marcarTareaComoFinalizada(tareaId);
+
+  let tareas = JSON.parse(localStorage.getItem("tareas"));
+
+  const tarea = tareas.find((t) => t.id === tareaId);
+
+  mostrarTareaFinalizada(tarea);
 }
 
 function marcarTareaComoFinalizada(tareaId) {
