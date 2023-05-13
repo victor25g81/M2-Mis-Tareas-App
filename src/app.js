@@ -37,6 +37,9 @@ function guardarTarea(event) {
   almacenarTarea(tarea);
 
   mostrarTarea(tarea);
+
+  $('#modalFechaHora').modal('hide');
+  $("#contenido").val('');
 }
 
 function mostrarTarea(tarea) {
@@ -198,7 +201,7 @@ function mostrarTareaFinalizada(tarea) {
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="form-check">
-                        <input class="form-check-input custom-control-input" type="checkbox" value="" disabled checked>
+                        <input class="form-check-input custom-control-input" type="checkbox" value="" checked>
                         <label class="form-check-label" for="defaultCheck1">
 
                         <i class="fas fa-clock"></i>${tarea.hora} - ${tarea.fecha} - ${tarea.contenido}
