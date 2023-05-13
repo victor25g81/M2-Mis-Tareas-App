@@ -36,6 +36,6 @@
   padding: 12px;
 }
 
-#tareasHoy > li, #tareasManana > li, #tareasSiguientesDias > li {
+#tareasHoy > li, #tareasManana > li, #tareasSiguientesDias > li, #tareasFinalizadas > li {
   list-style: none;
 }

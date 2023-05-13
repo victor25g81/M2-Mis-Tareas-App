@@ -184,6 +184,39 @@ function cargarTareasFinalizadas() {
   }
 }
 
+function mostrarTareaFinalizada(tarea) {
+  const template = `
+    <div class="container" style="margin-top: 2px">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                        <input class="form-check-input custom-control-input" type="checkbox" value="" disabled checked>
+                        <label class="form-check-label" for="defaultCheck1">
+
+                        <i class="fas fa-clock"></i>${tarea.hora} - ${tarea.fecha} - ${tarea.contenido}
+                                 
+                        </label>
+                    </div>
+                    <div>
+                        <label for="label"></label>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-warning btn-eliminar" tareaId="${tarea.id}"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+
+    const tareasFinalizadas = $("#tareasFinalizadas");
+    const liTarea = $("<li></li>");
+
+    liTarea.html(template);
+
+    tareasFinalizadas.append(liTarea);
+}
+
 /*Codigo de Prueba
 function cambiarTarea() {
   var tarea = document.getElementById("tareaId");
