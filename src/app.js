@@ -20,6 +20,7 @@ $(document).ready(() => {
   $("#guardarTarea").on("click", guardarTarea);
 
   cargarTareas();
+  cargarTareasFinalizadas();
 
   $(".btn-eliminar").on("click", eliminarTarea);
   $('.form-check-input').on('change', marcarComoFinalizada)
@@ -172,3 +173,26 @@ function cargarTareas() {
     }
   }
 }
+
+function cargarTareasFinalizadas() {
+  const tareas = JSON.parse(localStorage.getItem("tareas"));
+
+  for (const t of tareas) {
+    if (t.terminado) {
+      mostrarTareaFinalizada(t);
+    }
+  }
+}
+
+/*Codigo de Prueba
+function cambiarTarea() {
+  var tarea = document.getElementById("tareaId");
+  if (tarea.checked) {
+    const liTarea = $("<li></li>");
+
+    liTarea.html(template);
+
+    tareasHoy.append(liTarea);
+}
+};
+*/
