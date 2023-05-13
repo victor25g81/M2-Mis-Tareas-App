@@ -212,7 +212,7 @@ function mostrarTareaFinalizada(tarea) {
                         <label for="label"></label>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-warning btn-eliminar" tareaId="${tarea.id}"><i class="fas fa-trash-alt"></i></button>
+                        <button type="button" class="btn btn-danger btn-eliminar" tareaId="${tarea.id}"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
             </div>
