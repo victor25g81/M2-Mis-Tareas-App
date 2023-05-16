@@ -31,6 +31,8 @@ function guardarTarea(event) {
   const contenido = $("#contenido").val();
   const fecha = $("#fecha").val();
   const hora = $("#hora").val();
+  
+  $('#crearTarea').attr('disabled', true);
 
   const tarea = new Tarea(contenido, fecha, hora);
 
@@ -82,11 +84,11 @@ function mostrarTarea(tarea) {
 function marcarComoFinalizada(event) {
 
   Swal.fire({
-    title: 'Do you want to save the changes?',
-    showDenyButton: true,
+    title: 'estas seguro de eliminar Tarea?',
+    /*showDenyButton: true,*/
     showCancelButton: true,
-    confirmButtonText: 'Save',
-    denyButtonText: `Don't save`,
+    confirmButtonText: 'SI',
+    /*denyButtonText: `Don't save`,*/
   }).then((result) => {
     /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
@@ -103,6 +105,8 @@ function marcarComoFinalizada(event) {
       const tarea = tareas.find((t) => t.id === tareaId);
 
       mostrarTareaFinalizada(tarea);
+
+
     } else if (result.isDenied) {
       Swal.fire('Changes are not saved', '', 'info')
     }
@@ -125,6 +129,9 @@ function checkInput() {
   if (input.length > 0) {
     button.disabled = false;
   } else {
+    button.disabled = true;
+  }
+  if (!input) { /*linea de prueba linea 130 a la linea 132*/
     button.disabled = true;
   }
 }
