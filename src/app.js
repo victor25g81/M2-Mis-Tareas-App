@@ -84,13 +84,11 @@ function mostrarTarea(tarea) {
 function marcarComoFinalizada(event) {
 
   Swal.fire({
-    title: 'estas seguro de eliminar Tarea?',
-    /*showDenyButton: true,*/
+    title: '¿Estás seguro de finalizar Tarea?',
     showCancelButton: true,
-    confirmButtonText: 'SI',
-    /*denyButtonText: `Don't save`,*/
+    confirmButtonText: 'Sí',
+    cancelButtonText: 'No'
   }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
       const btnEliminar = $(this);
       const tareaId = $(btnEliminar).attr("tareaIdCheckbox");
@@ -105,10 +103,8 @@ function marcarComoFinalizada(event) {
       const tarea = tareas.find((t) => t.id === tareaId);
 
       mostrarTareaFinalizada(tarea);
-
-
-    } else if (result.isDenied) {
-      Swal.fire('Changes are not saved', '', 'info')
+    } else {
+      $(this).prop('checked', false);
     }
   })
 }
